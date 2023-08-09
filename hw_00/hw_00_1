@@ -1,0 +1,7 @@
+x_1 = int(input())
+x_2 = int(input())
+
+egg = 2 * x_1 + 3 * x_2
+pine = 4 * x_1 + 3 * x_2
+
+print(str(egg) + ',' + str(pine))

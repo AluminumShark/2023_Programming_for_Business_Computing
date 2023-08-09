@@ -1,0 +1,12 @@
+x_1 = int(input())
+x_2 = int(input())
+y_1 = int(input())
+y_2 = int(input())
+
+egg_a = 2 * x_1 + 3 * x_2
+pine_a = 4 * x_1 + 3 * x_2
+
+egg_j = egg_a % y_1
+pine_j = pine_a % y_2
+
+print(str(egg_a) + ',' + str(pine_a) + ',' + str(egg_j) + ',' + str(pine_j))
