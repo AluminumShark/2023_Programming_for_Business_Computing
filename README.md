@@ -1,3 +1,3 @@
 # Programming-for-Business-Computing-111
 
-homework assignments about the course
+homework assignments and tests about the course taken in 111-2
