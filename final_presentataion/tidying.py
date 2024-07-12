@@ -319,8 +319,7 @@ df_2["cultrue"] = df_2["cultrue"].apply(like)
 
 df_2["fakenews_indicator"] = 0
 
-varlist12 = ["fncheck_friend", "fncheck_book", "fncheck_expert", "fncheck_factcheck", "fnrespond1",
-             "fnrespond_2", "fnrespond_3", "fnrespond_4", "fc", "fc_usage", "tfc"]
+varlist12 = ["fncheck_friend", "fncheck_book", "fncheck_expert", "fncheck_factcheck"]
 
 for i in varlist12:
     df_2["fakenews_indicator"] += df_2[i]

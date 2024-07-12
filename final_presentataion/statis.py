@@ -44,17 +44,33 @@ result1 = model1.fit(cov_type="HC3")
 
 result2 = model2.fit(cov_type="HC3")
 
-with open("models.tex", "w") as models:
+with open("models.tex", "w", encoding= "utf-8") as models:
     models.write(result1.summary().as_text())
     models.write(result2.summary().as_text())
     models.close()
 
-jitter = 0.1  # Set your desired level of jitter here
+jitter = 0.1
 
+
+df["jittered_fakenews1"] = df["fakenews1"] + np.random.uniform(-jitter, jitter, size=len(df))
 df["jittered_fakenews2"] = df["fakenews2"] + np.random.uniform(-jitter, jitter, size=len(df))
-df["jittered_fnsce_mobile"] = df["fnsce_mobile"] + np.random.uniform(-jitter, jitter, size=len(df))
 df["jittered_fnsce_nbr"] = df["fnsce_nbr"] + np.random.uniform(-jitter, jitter, size=len(df))
 df["jittered_fakenews_indicator"] = df["fakenews_indicator"] + np.random.uniform(-jitter, jitter, size=len(df))
+
+
+fig_fakenews1 = go.Figure()
+scatter_fakenews1 = px.scatter(df, x="jittered_fakenews1", y="jittered_fakenews_indicator")
+boxplot_fnsce_mobile = px.box(df, x="fakenews1", y="fakenews_indicator")
+
+for i in fig_fakenews1.data:
+    fig_fakenews1.add_trace(i)
+for i in boxplot_fnsce_mobile.data:
+    fig_fakenews1.add_trace(i)
+
+fig_fakenews1.update_layout(xaxis_title = "您最近一年內有沒有收到過假消息", yaxis_title = "進行事實查核的程度")
+
+pio.write_image(fig_fakenews1, "fakenews1.png")
+
 
 fig_fakenews2 = go.Figure()
 scatter_fakenews2 = px.scatter(df, x="jittered_fakenews2", y="jittered_fakenews_indicator")
@@ -69,20 +85,6 @@ for i in boxplot_fakenews2.data:
 fig_fakenews2.update_layout(xaxis_title = "感覺生活中出現假訊息的頻率", yaxis_title = "進行事實查核的程度")
 
 pio.write_image(fig_fakenews2, "fakenews2.png")
-
-
-fig_fnsce_mobile = go.Figure()
-scatter_fnsce_mobile = px.scatter(df, x="jittered_fnsce_mobile", y="jittered_fakenews_indicator")
-boxplot_fnsce_mobile = px.box(df, x="fnsce_mobile", y="fakenews_indicator")
-
-for i in scatter_fnsce_mobile.data:
-    fig_fnsce_mobile.add_trace(i)
-for i in boxplot_fnsce_mobile.data:
-    fig_fnsce_mobile.add_trace(i)
-
-fig_fnsce_mobile.update_layout(xaxis_title = "認為手機散播假訊息的程度", yaxis_title = "進行事實查核的程度")
-
-pio.write_image(fig_fnsce_mobile, "fnsce_mobile.png")
 
 
 fig_fnsce_nbr = go.Figure()
